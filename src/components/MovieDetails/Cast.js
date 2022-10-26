@@ -1,5 +1,5 @@
 import { fetchCast } from "fetch/fetchCast"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useParams } from "react-router-dom"
 import { CastIMG, CastItem, Span } from "./MovieDetails.styled"
 
@@ -8,9 +8,13 @@ const posterStartPath = "https://image.tmdb.org/t/p/w600_and_h900_bestv2"
 const Cast = () => {
     const { movieId } = useParams()
     const [movieCast, setMovieCast] = useState(null)
+    const isFirstRender = useRef(true)
+
 
     useEffect(() => {
-        fetchCast(movieId).then(setMovieCast)
+        if (isFirstRender.current) {
+            fetchCast(movieId).then(setMovieCast)
+        } isFirstRender.current = false
     }, [movieId])
 
     if (!movieCast) {

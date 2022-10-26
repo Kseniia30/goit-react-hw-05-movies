@@ -1,14 +1,18 @@
 import { fetchReviews } from "fetch/fetchReviews"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useParams } from "react-router-dom"
 import { AdditionalReviewsContent, Span } from "./MovieDetails.styled"
 
 const Reviews = () => {
     const { movieId } = useParams()
     const [movieReview, setMovieReview] = useState(null)
+    const isFirstRender = useRef(true)
 
     useEffect(() => {
-        fetchReviews(movieId).then(setMovieReview)
+        if (isFirstRender.current) {
+            fetchReviews(movieId).then(setMovieReview)
+        }
+        isFirstRender.current = false
     }, [movieId])
 
     if (!movieReview) {

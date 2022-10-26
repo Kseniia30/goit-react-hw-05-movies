@@ -1,5 +1,5 @@
 import { fetchMovieById } from "fetch/fetchMovieById"
-import { Suspense, useEffect, useState } from "react"
+import { Suspense, useEffect, useRef, useState } from "react"
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import {BackBTN, MainDetailsBox, MainDetailsIMG, TextDetailsBox, Title, Text, TopText, Span, AdditionalNavLink} from "./MovieDetails.styled"
 
@@ -10,9 +10,12 @@ const MovieDetails = () => {
     const [movie, setMovie] = useState(null)
     const location = useLocation()
     const backLinkHref = location.state?.from ?? "/";
+    const isFirstRender = useRef(true)
 
     useEffect(() => {
-        fetchMovieById(Number(movieId)).then(setMovie)
+        if (isFirstRender.current) {
+            fetchMovieById(Number(movieId)).then(setMovie)
+        } isFirstRender.current = false
     }, [movieId])    
     
     if (!movie) {
