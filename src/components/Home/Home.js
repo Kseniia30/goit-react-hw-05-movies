@@ -8,6 +8,7 @@ const HomeMain = () => {
     const location = useLocation()
 
     useEffect(() => {
+        console.log("render", Date.now());
         fetchTrending().then(res => {
         const results = res.data.results
             setMovies(results)
@@ -26,8 +27,7 @@ const HomeMain = () => {
                 {movies.map(movie => {
                     return (
                         <MainItem key={movie.id}>
-                            <MainLink to={`/movies/${movie.id}`} state={{from: location}}>{movie.original_title
-}</MainLink>
+                            <MainLink to={`/movies/${movie.id}`} state={{from: location}}>{movie.original_title}</MainLink>
                         </MainItem>)
                 })}
             </MainList>

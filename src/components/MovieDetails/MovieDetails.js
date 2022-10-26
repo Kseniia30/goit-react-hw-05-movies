@@ -1,5 +1,5 @@
 import { fetchMovieById } from "fetch/fetchMovieById"
-import { useEffect, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import {BackBTN, MainDetailsBox, MainDetailsIMG, TextDetailsBox, Title, Text, TopText, Span, AdditionalNavLink} from "./MovieDetails.styled"
 
@@ -10,7 +10,6 @@ const MovieDetails = () => {
     const [movie, setMovie] = useState(null)
     const location = useLocation()
     const backLinkHref = location.state?.from ?? "/";
-    console.log(location.state?.from );
 
     useEffect(() => {
         fetchMovieById(Number(movieId)).then(setMovie)
@@ -46,7 +45,10 @@ const MovieDetails = () => {
                     <li><AdditionalNavLink to={`/movies/${movieId}/reviews`} state={{ from: backLinkHref }}>Reviews</AdditionalNavLink></li>
                 </ul>
             </div>
-            <Outlet/>
+            <Suspense fallback={null}>
+                <Outlet/>
+            </Suspense>
+            
         </>
     )
 }
