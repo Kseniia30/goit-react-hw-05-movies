@@ -1,4 +1,5 @@
 import { MainItem, MainList, MainLink } from "components/Home/Home.styled"
+import PropTypes from "prop-types"
 import { useLocation } from "react-router-dom"
 
 
@@ -14,3 +15,7 @@ const MovieMainList = ({ movieSearchList }) => {
     )
 }
 export default MovieMainList
+
+MovieMainList.propTypes = {
+    movieSearchList: PropTypes.array
+}

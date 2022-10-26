@@ -1,4 +1,5 @@
 import { FormBTN, SearchForm, SearchInput } from "./Movies.styled"
+import PropTypes from "prop-types"
 
 const MovieSearchForm = ({submitInfo}) => {
     return (
@@ -9,3 +10,7 @@ const MovieSearchForm = ({submitInfo}) => {
     )
 }
 export default MovieSearchForm
+
+MovieSearchForm.propTypes = {
+    submitInfo: PropTypes.func
+}
